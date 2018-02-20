@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_payment"
+        android:enabled="true"
+        android:icon="@drawable/credit_card"
+        android:title="Payment"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_transfers"
+        android:enabled="true"
+        android:icon="@drawable/transfer"
+        android:title="Transfers"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_wallet"
+        android:enabled="true"
+        android:icon="@drawable/wallet"
+        android:title="Wallet"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_account"
+        android:enabled="true"
+        android:icon="@drawable/account"
+        android:title="Account"
+        app:showAsAction="ifRoom" />
+</menu>

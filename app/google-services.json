@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1036683855707",
+    "firebase_url": "https://blockchain-bb66e.firebaseio.com",
+    "project_id": "blockchain-bb66e",
+    "storage_bucket": "blockchain-bb66e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036683855707:android:91f42adbb29ac80a",
+        "android_client_info": {
+          "package_name": "com.example.plarent.blockchain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036683855707-69hihma5i64pe9kpkagdp1tcu891jc75.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdisAZDARrEwqc_EE9OM4DVNLLX5jzHaM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036683855707-69hihma5i64pe9kpkagdp1tcu891jc75.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

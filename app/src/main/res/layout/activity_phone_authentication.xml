@@ -1,0 +1,135 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical"
+    android:weightSum="6">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="12sp"
+            android:textAlignment="center"
+            android:layout_marginTop="20sp"
+            android:text="Chainy will send you a onetime SMS message with a verification code" />
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:contentDescription="A"
+            android:layout_marginTop="30sp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/title_text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="12sp"
+            android:textAlignment="center"
+            android:layout_marginTop="10sp"
+            android:text="Please enter your phone number" />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="#FFF"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/phone_auth_fields"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3.0"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <EditText
+                    android:id="@+id/field_phone_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone number"
+                    android:layout_weight="2.0"
+                    android:inputType="phone" />
+
+                <Button
+                    android:id="@+id/button_start_verification"
+                    android:layout_width="0dp"
+                    android:textColor="#000"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:text="Start" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="5sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3.0">
+
+                <EditText
+                    android:id="@+id/field_verification_code"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.0"
+                    android:hint="Verification code"
+                    android:inputType="number" />
+
+                <Button
+                    android:id="@+id/button_verify_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:textColor="#000"
+                    android:text="Verify"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3.0">
+
+
+                <Button
+                    android:id="@+id/button_resend"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_weight="1.0"
+                    android:text="Resend"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
