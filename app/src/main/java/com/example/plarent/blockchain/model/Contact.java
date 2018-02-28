@@ -10,9 +10,19 @@ public class Contact implements Serializable {
     private String key;
     private String contactName;
     private String contactNumber;
+    private String currency;
+    private long amount;
 
     public Contact(){
 
+    }
+
+    public Contact(String key, String contactName, String contactNumber, long amount, String currency) {
+        this.key = key;
+        this.contactName = contactName;
+        this.contactNumber = contactNumber;
+        this.amount = amount;
+        this.currency = currency;
     }
 
     public Contact(String key, String contactName, String contactNumber) {
@@ -43,5 +53,21 @@ public class Contact implements Serializable {
 
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(long amount) {
+        this.amount = amount;
     }
 }

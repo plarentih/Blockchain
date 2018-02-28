@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Blockchain</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_wallet_frag">WalletFrag</string>
+    <string name="action_history">History</string>
+    <string name="balance">Balance</string>
+    <string name="start_transaction">Transaction</string>
+    <string name="account_transfer">Account you want to make transfer from:</string>
+    <string name="beneficiary_label">Please choose beneficiary:</string>
+    <string name="amount_label">Please choose the amount to transfer</string>
 </resources>

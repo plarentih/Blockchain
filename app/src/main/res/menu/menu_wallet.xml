@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.plarent.blockchain.activity.WalletFrag">
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_history"
+        app:showAsAction="always" />
+</menu>

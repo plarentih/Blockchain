@@ -2,21 +2,231 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#212b31"
     tools:context="com.example.plarent.blockchain.fragment.AccountFragment">
 
-    <ImageView
-        android:id="@+id/truiton_image"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/ic_launcher"/>
-
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/truiton_image"
+        android:background="@color/colorAccent"
+        android:id="@+id/linearLayout">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start_transaction"
+                android:clickable="false"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#E5BB40"
+                android:background="@drawable/button_style_balance"/>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="3dp"
+                android:background="#E5BB40" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="History"
+                android:textAllCaps="false"
+                android:textColor="#E5BB40"
+                android:background="@drawable/button_style_balance"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:id="@+id/lineari"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout">
+        <TextView
+            android:layout_width="0dp"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/account_transfer"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_marginLeft="5dp"
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lineari">
+        <TextView
+            android:id="@+id/user"
+            android:layout_width="wrap_content"
+            android:textColor="#E5BB40"
+            android:layout_height="wrap_content"
+            android:text="PLARENT HAXHIDAUTI"
+            android:textSize="18dp"/>
+
+        <LinearLayout
+            android:id="@+id/lineara"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="15sp"
+                android:text="Wallet Address: "/>
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user"
+                android:text="Azp8uYj90MnqtFvSdRezsa7g5"
+                android:textColor="#E5BB40"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lineara"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="15sp"
+                android:text="Amount: "/>
+            <TextView
+                android:id="@+id/amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1389"
+                android:textColor="#E5BB40"
+                android:textSize="15dp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/beneficiaryLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear">
+
+        <TextView
+            android:layout_width="0dp"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/beneficiary_label"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/beneficiary_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/beneficiaryLabel">
+        <EditText
+            android:id="@+id/receiver_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Please input the receivers wallet address"
+            android:textColor="#E5BB40"
+            android:textSize="15dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:textColorHint="#36454f"/>
+        <TextView
+            android:id="@+id/or"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="OR"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/receiver_address"
+            android:textColor="#fff"/>
+        <EditText
+            android:id="@+id/token"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Please input the receivers token"
+            android:textSize="15dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:textColor="#E5BB40"
+            android:layout_below="@id/or"
+            android:textColorHint="#36454f"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/amountLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/beneficiary_info">
+        <TextView
+            android:layout_width="0dp"
+            android:textColor="#fff"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="15sp"
+            android:text="@string/amount_label"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/amount_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/amountLabel">
+        <EditText
+            android:id="@+id/amount_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="0.00$"
+            android:inputType="number"
+            android:textColor="#E5BB40"
+            android:layout_centerHorizontal="true"
+            android:textSize="18dp"
+            android:textColorHint="@color/colorAccent"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/buttonSend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30sp"
+        android:layout_marginLeft="30sp"
+        android:layout_above="@id/button2"
+        android:textSize="20sp"
+        android:textColor="#E5BB40"
+        android:background="@drawable/button_style"
+        android:textAllCaps="false"
         android:layout_centerHorizontal="true"
-        android:text="Transfer Fragment"
-        android:textSize="30sp"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:text="Send" />
 
 </RelativeLayout>

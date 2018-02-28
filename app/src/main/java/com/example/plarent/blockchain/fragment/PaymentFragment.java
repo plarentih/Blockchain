@@ -8,6 +8,8 @@ import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.example.plarent.blockchain.R;
 import com.example.plarent.blockchain.activity.StartingActivity;
@@ -31,7 +33,11 @@ public class PaymentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_payment, container, false);
+        View view = inflater.inflate(R.layout.fragment_payment, container, false);
+
+        Button buttonPay = view.findViewById(R.id.button_pay);
+
+        return view;
     }
 
     @Override

@@ -2,21 +2,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#212b31"
     tools:context="com.example.plarent.blockchain.fragment.AccountFragment">
 
-    <ImageView
-        android:id="@+id/truiton_image"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/ic_launcher"/>
 
-    <TextView
+    <Button
+        android:id="@+id/button_pay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/truiton_image"
         android:layout_centerHorizontal="true"
-        android:text="Payment Fragment"
-        android:textSize="30sp"/>
-
+        android:layout_centerVertical="true"
+        android:text="Scan the QR Code"
+        android:padding="30dp"
+        android:textSize="20dp"
+        android:textAllCaps="false"
+        android:textColor="#E5BB40"
+        android:background="@drawable/button_style"/>
 </RelativeLayout>
