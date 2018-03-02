@@ -9,4 +9,6 @@
     <string name="account_transfer">Account you want to make transfer from:</string>
     <string name="beneficiary_label">Please choose beneficiary:</string>
     <string name="amount_label">Please choose the amount to transfer</string>
+    <string name="payment_info">You can make payments by scanning the QR code and make the pay immediately.</string>
+    <string name="payment_info2">It\'s that simple!</string>
 </resources>

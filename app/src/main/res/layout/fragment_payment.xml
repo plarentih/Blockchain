@@ -5,6 +5,34 @@
     android:background="#212b31"
     tools:context="com.example.plarent.blockchain.fragment.AccountFragment">
 
+    <RelativeLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#212b31"
+        android:id="@+id/linearLayout">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:textColor="#E5BB40"
+                android:textAlignment="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="@string/payment_info"/>
+            <TextView
+                android:textColor="#E5BB40"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="@string/payment_info2"/>
+
+        </LinearLayout>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/button_pay"
@@ -12,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Scan the QR Code"
+        android:text="Scan QR Code"
         android:padding="30dp"
         android:textSize="20dp"
         android:textAllCaps="false"

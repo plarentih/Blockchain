@@ -156,7 +156,7 @@
             android:textSize="15dp"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
-            android:textColorHint="#36454f"/>
+            android:textColorHint="#C0C0C0"/>
         <TextView
             android:id="@+id/or"
             android:layout_width="wrap_content"
@@ -176,7 +176,7 @@
             android:layout_marginLeft="30dp"
             android:textColor="#E5BB40"
             android:layout_below="@id/or"
-            android:textColorHint="#36454f"/>
+            android:textColorHint="#C0C0C0"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -210,7 +210,7 @@
             android:textColor="#E5BB40"
             android:layout_centerHorizontal="true"
             android:textSize="18dp"
-            android:textColorHint="@color/colorAccent"/>
+            android:textColorHint="#C0C0C0"/>
     </RelativeLayout>
 
     <Button
