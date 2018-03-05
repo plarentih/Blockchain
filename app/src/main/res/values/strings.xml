@@ -11,4 +11,7 @@
     <string name="amount_label">Please choose the amount to transfer</string>
     <string name="payment_info">You can make payments by scanning the QR code and make the pay immediately.</string>
     <string name="payment_info2">It\'s that simple!</string>
+    <string name="title_activity_start">SwipeActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
