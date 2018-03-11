@@ -39,7 +39,7 @@ public class SwipeActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), StartingActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PhoneAuthenticationActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -380,9 +380,9 @@ public class PhoneAuthenticationActivity extends AppCompatActivity implements Vi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_start_verification:
-                Intent intent = new Intent(getApplicationContext(), StartingActivity.class);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(getApplicationContext(), StartingActivity.class);
+//                startActivity(intent);
+//                finish();
                 if (!validatePhoneNumber()) {
                     return;
                 }

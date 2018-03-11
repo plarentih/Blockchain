@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "1036683855707",
-    "firebase_url": "https://blockchain-bb66e.firebaseio.com",
-    "project_id": "blockchain-bb66e",
-    "storage_bucket": "blockchain-bb66e.appspot.com"
+    "project_number": "934598071643",
+    "firebase_url": "https://blockchain-9de3c.firebaseio.com",
+    "project_id": "blockchain-9de3c",
+    "storage_bucket": "blockchain-9de3c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1036683855707:android:91f42adbb29ac80a",
+        "mobilesdk_app_id": "1:934598071643:android:91f42adbb29ac80a",
         "android_client_info": {
           "package_name": "com.example.plarent.blockchain"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1036683855707-69hihma5i64pe9kpkagdp1tcu891jc75.apps.googleusercontent.com",
+          "client_id": "934598071643-nbpicua1idhllljgdlvo4qn06gv56cj5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.plarent.blockchain",
+            "certificate_hash": "198ca66af1ce0222843eadba145b4c775ef716b4"
+          }
+        },
+        {
+          "client_id": "934598071643-5m2ct2jadg2ea5g05fn24hs63o4i91it.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDdisAZDARrEwqc_EE9OM4DVNLLX5jzHaM"
+          "current_key": "AIzaSyA8Br8jlksdKR3EEurV5OTk83pg_TQj6T0"
         }
       ],
       "services": {
@@ -32,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "1036683855707-69hihma5i64pe9kpkagdp1tcu891jc75.apps.googleusercontent.com",
+              "client_id": "934598071643-5m2ct2jadg2ea5g05fn24hs63o4i91it.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
