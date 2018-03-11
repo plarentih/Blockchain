@@ -11,5 +11,5 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        app:srcCompat="@drawable/blockchain_logo" />
+        app:srcCompat="@mipmap/blockchain_logo" />
 </RelativeLayout>

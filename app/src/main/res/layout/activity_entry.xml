@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="69dp"
-        app:srcCompat="@drawable/blockchain_logo" />
+        app:srcCompat="@mipmap/blockchain_logo" />
     <Button
         android:id="@+id/buttonCont"
         android:layout_width="wrap_content"
