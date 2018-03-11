@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.plarent.blockchain.fragment.StartOneFragment;
+import com.example.plarent.blockchain.fragment.StartThreeFragment;
 import com.example.plarent.blockchain.fragment.StartTwoFragment;
 
 /**
@@ -24,6 +25,8 @@ public class SwipePagerAdapter extends FragmentPagerAdapter {
                 return StartOneFragment.newInstance();
             case 1:
                 return StartTwoFragment.newInstance();
+            case 2:
+                return StartThreeFragment.newInstance();
         }
 
         return null;
@@ -31,6 +34,6 @@ public class SwipePagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 }
