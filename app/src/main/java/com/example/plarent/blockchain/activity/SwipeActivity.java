@@ -60,7 +60,7 @@ public class SwipeActivity extends AppCompatActivity {
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PhoneAuthenticationActivity.class);
+                Intent intent = new Intent(getApplicationContext(), StartingActivity.class);
                 startActivity(intent);
                 finish();
             }

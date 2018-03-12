@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Blockchain</string>
+    <string name="app_name">Sigmma</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_wallet_frag">WalletFrag</string>
@@ -15,12 +15,12 @@
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="welcome">Stay in touch with latest blockchain technology</string>
-    <string name="welcome_desc">Blockchain is an application to help you manage your wallet, make transfers to
+    <string name="welcome_desc">Blockchain is an app to manage your wallet, make transfers to
         anyone you want and make payments in a direct way.</string>
     <string name="welcome2">Transfers are essential in this technology</string>
     <string name="welcome_transfer">You can make transfers to anyone you want in a matter of seconds.
         Just specify details and you are done.</string>
     <string name="welcome3">Payments made directly with one scan</string>
-    <string name="welcome_payment">You can make payments easily by just scanning the QR Code at all authorized merchants.
-        Everything else is handled automatically.</string>
+    <string name="welcome_payment">You can make payments easily by scanning the QR Code at all authorized merchants.</string>
+    <string name="welcome_auth">Blockchain will send you a onetime SMS message with a verification code</string>
 </resources>
