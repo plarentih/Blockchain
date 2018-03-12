@@ -2,6 +2,7 @@ package com.example.plarent.blockchain.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -380,9 +381,15 @@ public class PhoneAuthenticationActivity extends AppCompatActivity implements Vi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_start_verification:
-//                Intent intent = new Intent(getApplicationContext(), StartingActivity.class);
-//                startActivity(intent);
-//                finish();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(getApplicationContext(), StartingActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }, 1000);
+
                 if (!validatePhoneNumber()) {
                     return;
                 }
