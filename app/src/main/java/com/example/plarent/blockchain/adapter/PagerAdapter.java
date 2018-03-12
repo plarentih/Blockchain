@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.plarent.blockchain.fragment.DepositsFragment;
-import com.example.plarent.blockchain.fragment.WithdrawalsFragment;
+import com.example.plarent.blockchain.fragment.WalletDepositsFragment;
+import com.example.plarent.blockchain.fragment.WalletWithdrawalsFragment;
 
 /**
  * Created by plarent on 12/03/2018.
@@ -24,10 +24,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                DepositsFragment tab1 = new DepositsFragment();
+                WalletDepositsFragment tab1 = new WalletDepositsFragment();
                 return tab1;
             case 1:
-                WithdrawalsFragment tab2 = new WithdrawalsFragment();
+                WalletWithdrawalsFragment tab2 = new WalletWithdrawalsFragment();
                 return tab2;
             default:
                 return null;

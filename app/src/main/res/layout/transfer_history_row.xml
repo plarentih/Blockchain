@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#212b31">
+
+    <TextView
+        android:id="@+id/txtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textColor="#00cc00"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="From - " />
+
+    <TextView
+        android:id="@+id/nameContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textColor="#fff"
+        android:layout_toEndOf="@+id/txtView"
+        android:text="John Doe" />
+
+    <TextView
+        android:id="@+id/walletAddressTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#fff"
+        android:layout_below="@+id/Txt"
+        android:layout_toEndOf="@id/Txt2"
+        android:text="Azp8uYj90MnqtFvSdRezsa7g5" />
+    <TextView
+        android:id="@+id/amountHistoryTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#fff"
+        android:layout_below="@+id/nameContact"
+        android:layout_toEndOf="@+id/Txt"
+        android:text="213" />
+
+    <TextView
+        android:id="@+id/currencyTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#FFF"
+        android:layout_below="@+id/nameContact"
+        android:layout_toEndOf="@+id/amountHistoryTxt"
+        android:text=" EUR" />
+
+    <TextView
+        android:id="@+id/Txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#C0C0C0"
+        android:layout_below="@+id/txtView"
+        android:text="Amount - " />
+
+    <TextView
+        android:id="@+id/Txt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#C0C0C0"
+        android:layout_below="@+id/Txt"
+        android:text="Address - " />
+</RelativeLayout>

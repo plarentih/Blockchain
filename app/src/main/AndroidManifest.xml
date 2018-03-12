@@ -12,23 +12,38 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.EntryActivity"></activity>
+        <activity android:name=".activity.EntryActivity" />
         <activity android:name=".activity.PhoneAuthenticationActivity" />
         <activity android:name=".activity.StartingActivity" />
         <activity
             android:name=".activity.SwipeActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activity.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+        <activity
+            android:name=".activity.HistoryWalletActivity"
+            android:label="Transaction History">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.StartingActivity" />
+        </activity>
+        <activity
+            android:name=".activity.TransferHistoryActivity"
+            android:label="Transfer History" />
+
+        <activity android:name=".activity.PeopleActivity"
+            android:label="People">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".activity.HistoryWalletActivity"
-            android:label="Transaction History">
+
         </activity>
     </application>
 

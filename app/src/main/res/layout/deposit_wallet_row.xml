@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#212b31">
+
+    <TextView
+        android:id="@+id/referenceView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="a7Uso8s"
+        android:textAlignment="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/amountView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="4521"
+        android:textAlignment="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/currencyView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="EURO"
+        android:textAlignment="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/dateView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="02.03.2018"
+        android:textAlignment="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:layout_weight="1"/>
+
+</LinearLayout>

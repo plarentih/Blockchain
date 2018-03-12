@@ -1,60 +1,38 @@
 package com.example.plarent.blockchain.activity;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.example.plarent.blockchain.R;
-import com.example.plarent.blockchain.adapter.PagerAdapter;
+import com.example.plarent.blockchain.adapter.TransferHistoryAdapter;
+import com.example.plarent.blockchain.model.Contact;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class HistoryWalletActivity extends AppCompatActivity {
+public class TransferHistoryActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private ListView listView;
+    private TransferHistoryAdapter adapter;
+    private List<Contact> contactList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history_wallet);
+        setContentView(R.layout.activity_transfer_history);
         centerTitle();
 
-//        toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        contactList = new ArrayList<>();
+        listView = findViewById(R.id.list_view);
+        contactList = dummyData();
+        adapter = new TransferHistoryAdapter(getApplicationContext(), contactList);
+        listView.setAdapter(adapter);
 
-        tabLayout = findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Deposits History"));
-        tabLayout.addTab(tabLayout.newTab().setText("Withdrawals History"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        final ViewPager viewPager = findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
     }
 
     private void centerTitle() {
@@ -84,5 +62,20 @@ public class HistoryWalletActivity extends AppCompatActivity {
         }
     }
 
-
+    private List<Contact> dummyData(){
+        List<Contact> contacts = new ArrayList<>();
+        Contact c1 = new Contact("1", "John Doe", "jufiheuf232", 321, "EUR");
+        Contact c2 = new Contact("2", "Max Kellerman", "fkjns3iejnfe", 432, "EUR");
+        Contact c3 = new Contact("3", "Stephen Smith", "lasfenirkne34", 764, "EUR");
+        Contact c4 = new Contact("4", "Molly Qerim", "9083urdfnsk", 100, "EUR");
+        Contact c5 = new Contact("5", "Aaron Rodgers", "lksdfmdklf54", 893, "EUR");
+        Contact c6 = new Contact("6", "Mathew Perry", "23jkbn23nreb", 765, "EUR");
+        contacts.add(c1);
+        contacts.add(c2);
+        contacts.add(c3);
+        contacts.add(c4);
+        contacts.add(c5);
+        contacts.add(c6);
+        return contacts;
+    }
 }
