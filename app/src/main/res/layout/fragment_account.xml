@@ -76,7 +76,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="3sp"
-        android:layout_margin="20sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
         android:layout_below="@id/linearLayout2"
         android:background="@color/colorAccent"
         android:id="@+id/linearLayout3">
@@ -99,6 +101,23 @@
             android:textSize="20sp"
             android:text="A7eG55hJ3" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:layout_below="@id/linearLayout3"
+        android:layout_above="@+id/buttonSettings">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/sms_auth"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
 
 
         <Button

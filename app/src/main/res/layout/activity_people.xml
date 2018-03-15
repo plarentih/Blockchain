@@ -7,14 +7,118 @@
     android:layout_height="match_parent"
     tools:context="com.example.plarent.blockchain.activity.PeopleActivity">
 
-    <TextView
+    <RelativeLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#212b31"
+        android:id="@+id/relativeLayout">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true">
+            <TextView
+                android:textColor="#E5BB40"
+                android:textAlignment="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="You can add people automatically to send them funds by scanning their QR Code"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/relativeLayout"
         android:layout_centerHorizontal="true"
-        android:text="To be continued..(this is only one left to do)"
-        android:textColor="#fff"
-        android:textSize="20sp"
-        android:layout_margin="40dp"/>
+        android:text="Scan QR Code"
+        android:padding="5dp"
+        android:background="@drawable/button_style"
+        android:textColor="#E5BB40"
+        android:textAllCaps="false"/>
+
+    <LinearLayout
+        android:id="@+id/ori"
+        android:layout_margin="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/button3"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:textColor="#E5BB40"
+            android:textAlignment="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Or"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/infoo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ori">
+        <EditText
+            android:id="@+id/receiver_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Please input the number of person you want to add"
+            android:textColor="#E5BB40"
+            android:textSize="15dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:textColorHint="#C0C0C0"/>
+        <TextView
+            android:id="@+id/or"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="And"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/receiver_address"
+            android:textColor="#fff"/>
+        <EditText
+            android:id="@+id/token"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Please input that persons wallet address"
+            android:textSize="15dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:textColor="#E5BB40"
+            android:layout_below="@id/or"
+            android:textColorHint="#C0C0C0"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/infoo"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:text="Add Person"
+        android:padding="5dp"
+        android:background="@drawable/button_style"
+        android:textColor="#E5BB40"
+        android:textAllCaps="false"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+    </LinearLayout>
+
 
 </RelativeLayout>

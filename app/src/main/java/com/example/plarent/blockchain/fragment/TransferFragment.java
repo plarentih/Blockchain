@@ -3,25 +3,44 @@ package com.example.plarent.blockchain.fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ListView;
 
+import com.activeandroid.query.Select;
 import com.example.plarent.blockchain.R;
 import com.example.plarent.blockchain.activity.PeopleActivity;
 import com.example.plarent.blockchain.activity.StartingActivity;
 import com.example.plarent.blockchain.activity.TransferHistoryActivity;
+import com.example.plarent.blockchain.model.Person;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.google.zxing.integration.android.IntentIntegrator;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransferFragment extends Fragment {
 
     private Button sendButton, historyButton, peopleButton;
+    private AutoCompleteTextView autoCompleteTextView;
+    ArrayAdapter<String> adapter;
+
+    List<Person> personList;
+    List<String> personNames;
 
     public TransferFragment() {
 
@@ -41,10 +60,13 @@ public class TransferFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_transfer, container, false);
-
+        autoCompleteTextView = view.findViewById(R.id.receiver_address);
         historyButton = view.findViewById(R.id.btnHistory);
         peopleButton = view.findViewById(R.id.btnPeople);
         sendButton = view.findViewById(R.id.buttonSend);
+
+        setAutoCompleteView();
+
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,5 +119,25 @@ public class TransferFragment extends Fragment {
         StartingActivity activity = (StartingActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
         actionBar.setTitle("Transfers");
+        setAutoCompleteView();
+
+    }
+
+    private static List<Person> getAllPersons(){
+        return new Select()
+                .from(Person.class)
+                .execute();
+    }
+
+    private void setAutoCompleteView(){
+        personList = getAllPersons();
+        personNames = new ArrayList<>();
+        for(Person person : personList){
+            personNames.add(person.getName());
+        }
+
+        adapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_dropdown_item_1line, personNames);
+        autoCompleteTextView.setAdapter(adapter);
     }
 }

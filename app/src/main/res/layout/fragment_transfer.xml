@@ -167,11 +167,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/beneficiaryLabel">
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/receiver_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Please input the receivers wallet address"
+            android:hint="Please input the receivers number or wallet address"
             android:textColor="#E5BB40"
             android:textSize="15dp"
             android:layout_marginRight="30dp"

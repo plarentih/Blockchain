@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
 
     <application
         android:allowBackup="true"
@@ -11,7 +14,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true"
+        android:name=".orm.MyApplication">
         <activity android:name=".activity.EntryActivity" />
         <activity android:name=".activity.PhoneAuthenticationActivity" />
         <activity android:name=".activity.StartingActivity" />
@@ -44,6 +49,16 @@
             android:label="People">
 
         </activity>
+
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="Blockchain.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.example.plarent.blockchain.model.Person" />
     </application>
 
 </manifest>
