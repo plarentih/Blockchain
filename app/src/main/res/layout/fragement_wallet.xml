@@ -2,13 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#212b31"
     tools:context="com.example.plarent.blockchain.fragment.WalletFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
+        android:background="#0082c3"
         android:id="@+id/linearLayout">
 
         <LinearLayout
@@ -23,13 +22,13 @@
                 android:clickable="false"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="#E5BB40"
+                android:textColor="#FFF"
                 android:background="@drawable/button_style_balance"/>
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="3dp"
-                android:background="#E5BB40" />
+                android:background="#fff" />
         </LinearLayout>
 
         <LinearLayout
@@ -44,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:text="History"
                 android:textAllCaps="false"
-                android:textColor="#E5BB40"
+                android:textColor="#fff"
                 android:background="@drawable/button_style_balance"/>
 
         </LinearLayout>
@@ -59,7 +58,7 @@
         <TextView
             android:layout_width="0dp"
             android:textAlignment="center"
-            android:textColor="#fff"
+            android:textColor="#000"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Amount"/>
@@ -69,7 +68,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:layout_weight="1"
-            android:textColor="#fff"
+            android:textColor="#000"
             android:text="Currency"/>
     </LinearLayout>
 

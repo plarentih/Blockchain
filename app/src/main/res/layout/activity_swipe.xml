@@ -34,7 +34,7 @@
         android:background="@drawable/button_style"
         android:textAllCaps="true"
         android:textSize="14sp"
-        android:textColor="#E5BB40"
+        android:textColor="#0082c3"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" />
 
@@ -49,6 +49,6 @@
         android:background="@drawable/button_style"
         android:textAllCaps="true"
         android:textSize="14sp"
-        android:textColor="#E5BB40"/>
+        android:textColor="#0082c3"/>
 
 </RelativeLayout>

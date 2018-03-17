@@ -1,20 +1,15 @@
 package com.example.plarent.blockchain.activity;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Point;
-import android.preference.PreferenceManager;
-import android.provider.SyncStateContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -23,11 +18,9 @@ import android.widget.Toast;
 import com.example.plarent.blockchain.R;
 import com.example.plarent.blockchain.model.Person;
 import com.example.plarent.blockchain.tools.PermissionHelper;
-import com.google.gson.Gson;
 import com.google.zxing.Result;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -39,6 +32,7 @@ public class PeopleActivity extends AppCompatActivity implements ZXingScannerVie
     private LinearLayout linearLayout;
     private RelativeLayout relativeLayout;
     private Person person;
+    private EditText numberedit, walletedit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +46,8 @@ public class PeopleActivity extends AppCompatActivity implements ZXingScannerVie
         addBtn = findViewById(R.id.button4);
         linearLayout = findViewById(R.id.ori);
         relativeLayout = findViewById(R.id.infoo);
+        numberedit = findViewById(R.id.receiver_address);
+        walletedit = findViewById(R.id.wallet);
 
         frameLayout = findViewById(R.id.frame_layout);
 
@@ -70,6 +66,21 @@ public class PeopleActivity extends AppCompatActivity implements ZXingScannerVie
                     PermissionHelper.askForPermissions(PeopleActivity.this);
                 }
 
+            }
+        });
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Editable number = numberedit.getText();
+                Editable wall = walletedit.getText();
+                String no = number.toString().trim();
+                String address = wall.toString().trim();
+                Person person = new Person();
+                person.phoneNumber = no;
+                person.wallet = address;
+                person.save();
+                finish();
             }
         });
     }

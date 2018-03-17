@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="110"
-    android:background="#212b31">
+    android:weightSum="110">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -34,7 +33,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:textAlignment="center"
-            android:textColor="#fff"
+            android:textColor="#000"
             android:textAllCaps="true"
             android:textStyle="bold"
             android:textSize="22sp"/>
@@ -65,7 +64,7 @@
             android:layout_centerInParent="true"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:textColor="#fff"
+            android:textColor="#000"
             android:textAlignment="center"
             android:textSize="18sp"/>
     </RelativeLayout>

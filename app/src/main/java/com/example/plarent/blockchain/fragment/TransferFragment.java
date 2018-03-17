@@ -24,12 +24,6 @@ import com.example.plarent.blockchain.activity.PeopleActivity;
 import com.example.plarent.blockchain.activity.StartingActivity;
 import com.example.plarent.blockchain.activity.TransferHistoryActivity;
 import com.example.plarent.blockchain.model.Person;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.google.zxing.integration.android.IntentIntegrator;
-
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 

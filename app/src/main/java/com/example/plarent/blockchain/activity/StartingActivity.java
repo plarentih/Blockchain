@@ -55,12 +55,15 @@ public class StartingActivity extends AppCompatActivity {
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.frame_layout, selectedFragment);
                         transaction.commit();
+                        getSupportFragmentManager().executePendingTransactions();
                         return true;
                     }
                 });
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, TransferFragment.newInstance());
+        transaction.replace(R.id.frame_layout, PaymentFragment.newInstance());
+        transaction.addToBackStack(null);
         transaction.commit();
+        //getSupportFragmentManager().executePendingTransactions();
     }
 
     private void centerTitle() {

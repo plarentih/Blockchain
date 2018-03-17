@@ -2,8 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#212b31">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/txtView"
@@ -20,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="22sp"
-        android:textColor="#fff"
+        android:textColor="#000"
         android:layout_toEndOf="@+id/txtView"
         android:text="John Doe" />
 
@@ -29,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:textColor="#fff"
+        android:textColor="#000"
         android:layout_below="@+id/Txt"
         android:layout_toEndOf="@id/Txt2"
         android:text="Azp8uYj90MnqtFvSdRezsa7g5" />
@@ -38,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:textColor="#fff"
+        android:textColor="#000"
         android:layout_below="@+id/nameContact"
         android:layout_toEndOf="@+id/Txt"
         android:text="213" />
@@ -48,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:textColor="#FFF"
+        android:textColor="#000"
         android:layout_below="@+id/nameContact"
         android:layout_toEndOf="@+id/amountHistoryTxt"
         android:text=" EUR" />
@@ -58,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:textColor="#C0C0C0"
+        android:textColor="#000"
         android:layout_below="@+id/txtView"
         android:text="Amount - " />
 
@@ -67,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:textColor="#C0C0C0"
+        android:textColor="#000"
         android:layout_below="@+id/Txt"
         android:text="Address - " />
 </RelativeLayout>

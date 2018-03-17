@@ -45,7 +45,7 @@ public class AccountFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -91,18 +91,10 @@ public class AccountFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if(user == null){
-                    Intent intent = new Intent(getContext(), SwipeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }else {
-                    firebaseAuth.signOut();
-                    Intent intent = new Intent(getContext(), SwipeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }
-
+                firebaseAuth.signOut();
+                Intent intent = new Intent(getContext(), SwipeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
         return view;

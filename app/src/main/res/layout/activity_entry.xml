@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#212b31"
     tools:context="com.example.plarent.blockchain.activity.EntryActivity">
 
     <ImageView
@@ -24,7 +23,7 @@
         android:layout_marginBottom="70dp"
         android:background="@drawable/button_style"
         android:text="Continue"
-        android:textColor="#E5BB40" />
+        android:textColor="#0082c3" />
 
 
 </RelativeLayout>

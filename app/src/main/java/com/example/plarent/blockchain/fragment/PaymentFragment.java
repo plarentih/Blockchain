@@ -1,31 +1,32 @@
 package com.example.plarent.blockchain.fragment;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.plarent.blockchain.R;
 import com.example.plarent.blockchain.activity.StartingActivity;
 import com.example.plarent.blockchain.tools.PermissionHelper;
+import com.google.zxing.Result;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 
-public class PaymentFragment extends Fragment {
+public class PaymentFragment extends Fragment implements ZXingScannerView.ResultHandler {
 
-    private IntentIntegrator qrScan;
+    private FrameLayout frameLayout;
+    private ZXingScannerView scannerView;
+    private Button buttonPay;
+    private View view;
 
     public PaymentFragment() {
     }
@@ -43,41 +44,52 @@ public class PaymentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_payment, container, false);
-        qrScan = new IntentIntegrator(getActivity());
+        view = inflater.inflate(R.layout.fragment_payment, container, false);
+        frameLayout = view.findViewById(R.id.frame_layouti);
 
-        Button buttonPay = view.findViewById(R.id.button_pay);
+        DisplayMetrics metrics = getActivity().getResources().getDisplayMetrics();
+        int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
+        frameLayout.getLayoutParams().width = height / 3;
+        frameLayout.getLayoutParams().height = height / 3;
+        buttonPay = view.findViewById(R.id.button_pay);
+        setButtonClick();
+        return view;
+    }
+
+    private void setButtonClick(){
         buttonPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(PermissionHelper.checkForPermissions(getActivity())){
-                    qrScan.initiateScan();
+                    QRScanner(view);
                 }else {
                     PermissionHelper.askForPermissions(getActivity());
                 }
             }
         });
+    }
 
-        return view;
+    public void QRScanner(View view){
+        buttonPay.setVisibility(View.GONE);
+        if(scannerView == null){
+            scannerView = new ZXingScannerView(getActivity());
+            frameLayout.addView(scannerView);
+            scannerView.setResultHandler(this);
+            scannerView.startCamera();
+        }else {
+            frameLayout.setVisibility(View.VISIBLE);
+            scannerView.startCamera();
+            scannerView.setResultHandler(this);
+        }
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null){
-            if (result.getContents() == null) {
-                Toast.makeText(getActivity(), "Result is not found", Toast.LENGTH_LONG).show();
-            }else {
-                try{
-                    JSONObject jsonObject = new JSONObject(result.getContents());
-                    Toast.makeText(getActivity(), jsonObject.getString("name"), Toast.LENGTH_LONG).show();
-                }catch (JSONException ex){
-                    ex.printStackTrace();
-                }
-            }
-        }else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
+    public void handleResult(Result result) {
+        String text = result.getText();
+        Toast.makeText(getActivity(), "You have made a payment of " + text + " EUR", Toast.LENGTH_LONG).show();
+        frameLayout.setVisibility(View.GONE);
+        buttonPay.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -91,5 +103,37 @@ public class PaymentFragment extends Fragment {
         StartingActivity activity = (StartingActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
         actionBar.setTitle("Payment");
+
+        if(getView() == null){
+            return;
+        }
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
+                    if(scannerView != null){
+                        scannerView.stopCamera();
+                    }
+                    frameLayout.setVisibility(View.GONE);
+                    buttonPay.setVisibility(View.VISIBLE);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(scannerView != null){
+            scannerView.stopCamera();
+        }
+    }
+
+
 }
