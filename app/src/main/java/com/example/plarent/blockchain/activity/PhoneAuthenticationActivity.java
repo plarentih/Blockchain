@@ -263,6 +263,8 @@ public class PhoneAuthenticationActivity extends AppCompatActivity implements Vi
                             editor.putString("CONTACT_KEY", contactKey);
                             editor.putString("CONTACT_NAME", "Default");
                             editor.putString("CONTACT_NUMBER", mPhoneNumberField.getText().toString());
+                            editor.putString("PUBLIC_KEY", " ");
+                            editor.putString("PRIVATE_KEY", " ");
                             editor.commit();
                             // [END_EXCLUDE]
                         } else {

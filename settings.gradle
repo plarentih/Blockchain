@@ -1,1 +1,3 @@
 include ':app'
+include 'libsodium-jni-release'
+project(':libsodium-jni-release').projectDir = new File('/Users/plarent/Documents/GitHub/Blockchain/libsodium-jni-release')
