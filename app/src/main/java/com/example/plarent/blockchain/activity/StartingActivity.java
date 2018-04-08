@@ -13,7 +13,6 @@ import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.plarent.blockchain.R;
 import com.example.plarent.blockchain.fragment.AccountFragment;
@@ -23,10 +22,15 @@ import com.example.plarent.blockchain.fragment.WalletFragment;
 import com.example.plarent.blockchain.tools.BottomNavigationViewHelper;
 
 import java.io.IOException;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -35,11 +39,11 @@ import okhttp3.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.libsodium.jni.SodiumConstants;
-import org.libsodium.jni.crypto.Random;
-import org.libsodium.jni.keys.KeyPair;
-import org.libsodium.jni.keys.SigningKey;
-import org.libsodium.jni.keys.VerifyKey;
+//import org.libsodium.jni.SodiumConstants;
+//import org.libsodium.jni.crypto.Random;
+//import org.libsodium.jni.keys.KeyPair;
+//import org.libsodium.jni.keys.SigningKey;
+//import org.libsodium.jni.keys.VerifyKey;
 
 
 public class StartingActivity extends AppCompatActivity {
@@ -51,12 +55,15 @@ public class StartingActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private String public_k;
     private String private_k;
+    private KeyPairGenerator keyGen;
+    private KeyPair pair;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starting);
         centerTitle();
+
 
 //        OkHttpClient.Builder builder = new OkHttpClient.Builder();
 //        builder.connectTimeout(30, TimeUnit.SECONDS);
@@ -117,8 +124,15 @@ public class StartingActivity extends AppCompatActivity {
         transaction.commit();
 
         if(public_k.trim().isEmpty() && private_k.trim().isEmpty()){
-            byte[] seed = new Random().randomBytes(SodiumConstants.SECRETKEY_BYTES);
-            generateEncryptionKeyPair(seed);
+            //byte[] seed = new Random().randomBytes(SodiumConstants.SECRETKEY_BYTES);
+            //generateEncryptionKeyPair(seed);
+            try {
+                generateTheUniqueKeys();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }catch (NoSuchProviderException e){
+                e.printStackTrace();
+            }
 
             Thread threadi = new Thread(new Runnable() {
                 @Override
@@ -140,18 +154,36 @@ public class StartingActivity extends AppCompatActivity {
     }
 
     private void generateEncryptionKeyPair(byte[] seed) {
-        SigningKey signingKey = new SigningKey(seed);
-        VerifyKey verifyKey = signingKey.getVerifyKey();
-        byte[] verifyKeyArray = verifyKey.toBytes();
-        byte[] signingKeyArray = signingKey.toBytes();
+//        SigningKey signingKey = new SigningKey(seed);
+//        VerifyKey verifyKey = signingKey.getVerifyKey();
+//        byte[] verifyKeyArray = verifyKey.toBytes();
+//        byte[] signingKeyArray = signingKey.toBytes();
+//
+//        KeyPair encryptionKeyPair = new KeyPair(seed);
+//        byte[] encryptionPublicKey = encryptionKeyPair.getPublicKey().toBytes();
+//        byte[] encryptionPrivateKey = encryptionKeyPair.getPrivateKey().toBytes();
 
-        KeyPair encryptionKeyPair = new KeyPair(seed);
-        byte[] encryptionPublicKey = encryptionKeyPair.getPublicKey().toBytes();
-        byte[] encryptionPrivateKey = encryptionKeyPair.getPrivateKey().toBytes();
-
-        public_k = Base64.encodeToString(verifyKeyArray, BASE64_SAFE_URL_FLAGS);
-        private_k = Base64.encodeToString(signingKeyArray, BASE64_SAFE_URL_FLAGS);
+//        public_k = Base64.encodeToString(verifyKeyArray, BASE64_SAFE_URL_FLAGS);
+//        private_k = Base64.encodeToString(signingKeyArray, BASE64_SAFE_URL_FLAGS);
         int a = 0;
+    }
+
+    public void generateTheUniqueKeys() throws NoSuchAlgorithmException, NoSuchProviderException {
+//        KeyPairGenerator keyGenerator = KeyPairGenerator.getInstance("RSA");
+//        keyGenerator.initialize(512);
+//        KeyPair keyPair = keyGenerator.generateKeyPair();SUN
+//        PrivateKey privateKey = keyPair.getPrivate();
+//        PublicKey pubKey = keyPair.getPublic();
+        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+        SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+        keyGen.initialize(1024, random);
+        KeyPair keyPair = keyGen.generateKeyPair();
+        PrivateKey privateKey = keyPair.getPrivate();
+        PublicKey publicKey = keyPair.getPublic();
+
+        private_k = Base64.encodeToString(privateKey.getEncoded(), Base64.DEFAULT);
+        public_k = Base64.encodeToString(publicKey.getEncoded(), Base64.DEFAULT);
+        int a = 1;
     }
 
     private void generateWallet() throws JSONException {

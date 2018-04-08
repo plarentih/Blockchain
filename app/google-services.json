@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "427044302602-3uceb9gu4tcfta9jbq1hor3nku91v7n5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.plarent.blockchain",
+            "certificate_hash": "765975c7b4ba34b6ed2af7838fa1e18ebbda6876"
+          }
+        },
+        {
           "client_id": "427044302602-61aqmqj7v785035tjufd3bngu1sos7o9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
