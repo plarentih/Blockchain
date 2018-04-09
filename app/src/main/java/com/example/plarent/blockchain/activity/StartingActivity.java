@@ -193,7 +193,7 @@ public class StartingActivity extends AppCompatActivity {
 //      String private_key = "9f684227f1de663775848b3db656bca685e085391e2b00b0e115679fd45443ef58a5abeb555ab3d5f7a3cd27955a2079e5fd486743f36515c8e5bea07992100b";
         String url = "http://poc.serval.uni.lu:8080/api/services/cryptocurrency/v1/wallets";
         String jsonFile =
-                "{ \"body\": {\"pub_key\":\"" + public_k+ "\",\"name\": \"Plarent\" }, \"network_id\": 0, \"protocol_version\": 0, \"service_id\": 1, \"message_id\": 0, \"signature\": \""+private_k+"\"}";
+                "{ \"body\": {\"pub_key\":\"" + public_key + "\",\"name\": \"Plarent\" }, \"network_id\": 0, \"protocol_version\": 0, \"service_id\": 1, \"message_id\": 0, \"signature\": \""+private_k+"\"}";
         JSONObject jsonObject = new JSONObject(jsonFile);
         try {
             startProcess(url, jsonObject.toString());
