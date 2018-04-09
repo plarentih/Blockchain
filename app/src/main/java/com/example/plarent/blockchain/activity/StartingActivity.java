@@ -153,7 +153,7 @@ public class StartingActivity extends AppCompatActivity {
         }
     }
 
-    private void generateEncryptionKeyPair(byte[] seed) {
+//    private void generateEncryptionKeyPair(byte[] seed) {
 //        SigningKey signingKey = new SigningKey(seed);
 //        VerifyKey verifyKey = signingKey.getVerifyKey();
 //        byte[] verifyKeyArray = verifyKey.toBytes();
@@ -166,7 +166,7 @@ public class StartingActivity extends AppCompatActivity {
 //        public_k = Base64.encodeToString(verifyKeyArray, BASE64_SAFE_URL_FLAGS);
 //        private_k = Base64.encodeToString(signingKeyArray, BASE64_SAFE_URL_FLAGS);
         int a = 0;
-    }
+//    }
 
     public void generateTheUniqueKeys() throws NoSuchAlgorithmException, NoSuchProviderException {
 //        KeyPairGenerator keyGenerator = KeyPairGenerator.getInstance("RSA");
