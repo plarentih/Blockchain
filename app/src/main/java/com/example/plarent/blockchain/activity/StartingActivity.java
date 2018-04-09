@@ -22,13 +22,7 @@ import com.example.plarent.blockchain.fragment.WalletFragment;
 import com.example.plarent.blockchain.tools.BottomNavigationViewHelper;
 
 import java.io.IOException;
-import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 
 import okhttp3.MediaType;
@@ -39,11 +33,13 @@ import okhttp3.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-//import org.libsodium.jni.SodiumConstants;
-//import org.libsodium.jni.crypto.Random;
-//import org.libsodium.jni.keys.KeyPair;
-//import org.libsodium.jni.keys.SigningKey;
-//import org.libsodium.jni.keys.VerifyKey;
+import org.libsodium.jni.SodiumConstants;
+import org.libsodium.jni.crypto.Random;
+import org.libsodium.jni.SodiumConstants;
+import org.libsodium.jni.crypto.Random;
+import org.libsodium.jni.keys.SigningKey;
+import org.libsodium.jni.keys.VerifyKey;
+import org.libsodium.jni.keys.KeyPair;
 
 
 public class StartingActivity extends AppCompatActivity {
@@ -55,8 +51,6 @@ public class StartingActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private String public_k;
     private String private_k;
-    private KeyPairGenerator keyGen;
-    private KeyPair pair;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,19 +58,12 @@ public class StartingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_starting);
         centerTitle();
 
-
-//        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-//        builder.connectTimeout(30, TimeUnit.SECONDS);
-//        builder.readTimeout(30, TimeUnit.SECONDS);
-//        builder.writeTimeout(30, TimeUnit.SECONDS);
-//        client = builder.build();
-
         preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         final SharedPreferences.Editor editor = preferences.edit();
         public_k = preferences.getString("PUBLIC_KEY", null);
         private_k = preferences.getString("PRIVATE_KEY", null);
 
-        final String url = "http://poc.serval.uni.lu:8080/api/services/cryptocurrency/v1/wallet/6ce29b2d3ecadc434107ce52c287001c968a1b6eca3e5a1eb62a2419e2924b85";
+        final String url = "http://poc.serval.uni.lu:8080/api/services/cryptocurrency/v1/wallets";
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -124,16 +111,9 @@ public class StartingActivity extends AppCompatActivity {
         transaction.commit();
 
         if(public_k.trim().isEmpty() && private_k.trim().isEmpty()){
-            //byte[] seed = new Random().randomBytes(SodiumConstants.SECRETKEY_BYTES);
-            //generateEncryptionKeyPair(seed);
-            try {
-                generateTheUniqueKeys();
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }catch (NoSuchProviderException e){
-                e.printStackTrace();
-            }
-
+            byte[] seed = new Random().randomBytes(SodiumConstants.SECRETKEY_BYTES);
+            generateEncryptionKeyPair(seed);
+            generateSigningKeyPair(seed);
             Thread threadi = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -153,56 +133,51 @@ public class StartingActivity extends AppCompatActivity {
         }
     }
 
-//    private void generateEncryptionKeyPair(byte[] seed) {
-//        SigningKey signingKey = new SigningKey(seed);
-//        VerifyKey verifyKey = signingKey.getVerifyKey();
-//        byte[] verifyKeyArray = verifyKey.toBytes();
-//        byte[] signingKeyArray = signingKey.toBytes();
-//
-//        KeyPair encryptionKeyPair = new KeyPair(seed);
-//        byte[] encryptionPublicKey = encryptionKeyPair.getPublicKey().toBytes();
-//        byte[] encryptionPrivateKey = encryptionKeyPair.getPrivateKey().toBytes();
+    private void generateEncryptionKeyPair(byte[] seed) {
+        KeyPair encryptionKeyPair = new KeyPair(seed);
+        byte[] encryptionPublicKey = encryptionKeyPair.getPublicKey().toBytes();
+        byte[] encryptionPrivateKey = encryptionKeyPair.getPrivateKey().toBytes();
 
-//        public_k = Base64.encodeToString(verifyKeyArray, BASE64_SAFE_URL_FLAGS);
-//        private_k = Base64.encodeToString(signingKeyArray, BASE64_SAFE_URL_FLAGS);
-        int a = 0;
-//    }
-
-    public void generateTheUniqueKeys() throws NoSuchAlgorithmException, NoSuchProviderException {
-//        KeyPairGenerator keyGenerator = KeyPairGenerator.getInstance("RSA");
-//        keyGenerator.initialize(512);
-//        KeyPair keyPair = keyGenerator.generateKeyPair();SUN
-//        PrivateKey privateKey = keyPair.getPrivate();
-//        PublicKey pubKey = keyPair.getPublic();
-        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-        SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
-        keyGen.initialize(1024, random);
-        KeyPair keyPair = keyGen.generateKeyPair();
-        PrivateKey privateKey = keyPair.getPrivate();
-        PublicKey publicKey = keyPair.getPublic();
-
-        private_k = Base64.encodeToString(privateKey.getEncoded(), Base64.DEFAULT);
-        public_k = Base64.encodeToString(publicKey.getEncoded(), Base64.DEFAULT);
-        int a = 1;
+        public_k = Base64.encodeToString(encryptionPublicKey, BASE64_SAFE_URL_FLAGS);
+        //private_k = Base64.encodeToString(encryptionPrivateKey, BASE64_SAFE_URL_FLAGS);
     }
 
-    private void generateWallet() throws JSONException {
-        String public_key = 'fa7f9ee43aff70c879f80fa7fd15955c18b98c72310b09e7818310325050cf7a';
-        String private_key = '978e3321bd6331d56e5f4c2bdb95bf471e95a77a6839e68d4241e7b0932ebe2b' + 'fa7f9ee43aff70c879f80fa7fd15955c18b98c72310b09e7818310325050cf7a';
+    private void generateSigningKeyPair(byte[] seed) {
+        SigningKey signingKey = new SigningKey(seed);
+        VerifyKey verifyKey = signingKey.getVerifyKey();
+        byte[] verifyKeyArray = verifyKey.toBytes();
+        byte[] signingKeyArray = signingKey.toBytes();
+        //signKeyView.setText(Base64.encodeToString(verifyKeyArray, BASE64_SAFE_URL_FLAGS));
+        private_k =  Base64.encodeToString(signingKeyArray, BASE64_SAFE_URL_FLAGS);
+    }
+
+    private void generateWallet() throws JSONException, Exception {
+        String public_key = "fa7f9ee43aff70c879f80fa7fd15955c18b98c72310b09e7818310325050cf7a";
+        String private_key = "978e3321bd6331d56e5f4c2bdb95bf471e95a77a6839e68d4241e7b0932ebe2b" + "fa7f9ee43aff70c879f80fa7fd15955c18b98c72310b09e7818310325050cf7a";
 //      String public_key = "6ce29b2d3ecadc434107ce52c287001c968a1b6eca3e5a1eb62a2419e2924b85";
 //      String private_key = "9f684227f1de663775848b3db656bca685e085391e2b00b0e115679fd45443ef58a5abeb555ab3d5f7a3cd27955a2079e5fd486743f36515c8e5bea07992100b";
         String url = "http://poc.serval.uni.lu:8080/api/services/cryptocurrency/v1/wallets";
-        String jsonFile =
-                "{ \"body\": {\"pub_key\":\"" + public_key + "\",\"name\": \"Plarent\" }, \"network_id\": 0, \"protocol_version\": 0, \"service_id\": 1, \"message_id\": 0, \"signature\": \""+private_k+"\"}";
-        JSONObject jsonObject = new JSONObject(jsonFile);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("pub_key", public_key);
+        jsonObject.put("name", "Plarent");
+
+        JSONObject outJson = new JSONObject();
+        outJson.put("body", jsonObject);
+        outJson.put("network_id", 0);
+        outJson.put("protocol_version", 0);
+        outJson.put("service_id", 1);
+        outJson.put("message_id", 0);
+        outJson.put("signature", private_key);
+
         try {
-            startProcess(url, jsonObject.toString());
+            startProcess(url, outJson.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public String startProcess(String url, String json) throws IOException {
+    public String startProcess(String url, String json) throws IOException, JSONException {
         RequestBody body = RequestBody.create(JSON_FORMAT, json);
         Request request = new Request.Builder()
                 .url(url)
@@ -210,7 +185,10 @@ public class StartingActivity extends AppCompatActivity {
                 .build();
         Response response = client.newCall(request).execute();
         int code = response.code();
-        return response.body().string();
+        String res = response.body().string();
+        boolean isSucc = response.isSuccessful();
+        JSONObject dataReceived = new JSONObject(res);
+        return dataReceived.toString();
     }
 
     public String runi(String url) throws IOException {
