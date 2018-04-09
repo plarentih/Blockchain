@@ -187,11 +187,13 @@ public class StartingActivity extends AppCompatActivity {
     }
 
     private void generateWallet() throws JSONException {
-        String public_key = "6ce29b2d3ecadc434107ce52c287001c968a1b6eca3e5a1eb62a2419e2924b85";
-        String private_key = "9f684227f1de663775848b3db656bca685e085391e2b00b0e115679fd45443ef58a5abeb555ab3d5f7a3cd27955a2079e5fd486743f36515c8e5bea07992100b";
+        String public_key = 'fa7f9ee43aff70c879f80fa7fd15955c18b98c72310b09e7818310325050cf7a';
+        String private_key = '978e3321bd6331d56e5f4c2bdb95bf471e95a77a6839e68d4241e7b0932ebe2b' + 'fa7f9ee43aff70c879f80fa7fd15955c18b98c72310b09e7818310325050cf7a';
+//      String public_key = "6ce29b2d3ecadc434107ce52c287001c968a1b6eca3e5a1eb62a2419e2924b85";
+//      String private_key = "9f684227f1de663775848b3db656bca685e085391e2b00b0e115679fd45443ef58a5abeb555ab3d5f7a3cd27955a2079e5fd486743f36515c8e5bea07992100b";
         String url = "http://poc.serval.uni.lu:8080/api/services/cryptocurrency/v1/wallets";
         String jsonFile =
-                "{ \"body\": {\"pub_key\":\"" + public_k+ "\",\"name\": \"Plarent\" }, \"network_id\": 0, \"protocol_version\": 0, \"service_id\": 1, \"message_id\": 0, \"signature\": \""+private_k+"\"}";
+                "{ \"body\": {\"pub_key\":\"" + public_key + "\",\"name\": \"Plarent\" }, \"network_id\": 0, \"protocol_version\": 0, \"service_id\": 1, \"message_id\": 0, \"signature\": \""+private_k+"\"}";
         JSONObject jsonObject = new JSONObject(jsonFile);
         try {
             startProcess(url, jsonObject.toString());
