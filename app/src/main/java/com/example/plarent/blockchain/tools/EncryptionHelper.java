@@ -41,14 +41,6 @@ public class EncryptionHelper {
         return pair;
     }
 
-    public static byte[] signData(String jsonData, byte[]seed) throws Exception {
-        Signature signature = Signature.getInstance("SHA1withDSA", "SUN");
-        signature.initSign(generateKeyPair().getPrivate());
-        byte[] bytes =  jsonData.getBytes(UTF_8);
-        signature.update(bytes);
-        return bytes;
-    }
-
     public static PrivateKey loadPrivateKey(String key64) throws GeneralSecurityException {
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         byte[] encodedPv = Base64.decode(key64, Base64.DEFAULT);
@@ -66,16 +58,35 @@ public class EncryptionHelper {
     }
 
     public static String savePrivateKey(PrivateKey priv) throws GeneralSecurityException, UnsupportedEncodingException {
-        KeyFactory fact = KeyFactory.getInstance("RSA");
-        byte[] privateString = Base64.encode(priv.getEncoded(), Base64.DEFAULT);
-        String str = new String(privateString, "UTF-8");
-        return str;
+        byte[] keyBytes = priv.getEncoded();
+        String ss = Base64.encodeToString(keyBytes, Base64.DEFAULT);
+        return ss;
     }
 
 
-//    public static String savePublicKey(PublicKey publ) throws GeneralSecurityException {
-//        KeyFactory fact = KeyFactory.getInstance("RSA");
-//        X509EncodedKeySpec spec = fact.getKeySpec(publ, X509EncodedKeySpec.class);
-//        return base64Encode(spec.getEncoded());
-//    }
+    public static String savePublicKey(PublicKey publ) throws GeneralSecurityException {
+        byte[] keyBytes = publ.getEncoded();
+        String ss = Base64.encodeToString(keyBytes, Base64.DEFAULT);
+        return ss;
+    }
+
+    public static String sign(String plainText, PrivateKey privateKey) throws Exception {
+        Signature privateSignature = Signature.getInstance("SHA256withRSA");
+        privateSignature.initSign(privateKey);
+        privateSignature.update(plainText.getBytes(UTF_8));
+
+        byte[] signature = privateSignature.sign();
+
+        return Base64.encodeToString(signature, Base64.DEFAULT);
+    }
+
+    public static boolean verify(String plainText, String signature, PublicKey publicKey) throws Exception {
+        Signature publicSignature = Signature.getInstance("SHA256withRSA");
+        publicSignature.initVerify(publicKey);
+        publicSignature.update(plainText.getBytes(UTF_8));
+
+        byte[] signatureBytes = Base64.decode(signature, Base64.DEFAULT);
+
+        return publicSignature.verify(signatureBytes);
+    }
 }

@@ -23,6 +23,9 @@ import com.example.plarent.blockchain.tools.BottomNavigationViewHelper;
 import com.example.plarent.blockchain.tools.EncryptionHelper;
 
 import java.io.IOException;
+import java.security.KeyPair;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.ArrayList;
 
 import okhttp3.MediaType;
@@ -39,7 +42,7 @@ import org.libsodium.jni.SodiumConstants;
 import org.libsodium.jni.crypto.Random;
 import org.libsodium.jni.keys.SigningKey;
 import org.libsodium.jni.keys.VerifyKey;
-import org.libsodium.jni.keys.KeyPair;
+//import org.libsodium.jni.keys.KeyPair;
 
 
 public class StartingActivity extends AppCompatActivity {
@@ -112,9 +115,9 @@ public class StartingActivity extends AppCompatActivity {
         transaction.commit();
 
         if(public_k.trim().isEmpty() && private_k.trim().isEmpty()){
-            byte[] seed = new Random().randomBytes(SodiumConstants.SECRETKEY_BYTES);
-            generateEncryptionKeyPair(seed);
-            generateSigningKeyPair(seed);
+            //byte[] seed = new Random().randomBytes(SodiumConstants.SECRETKEY_BYTES);
+            //generateEncryptionKeyPair(seed);
+            //generateSigningKeyPair(seed);
             Thread threadi = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -134,25 +137,35 @@ public class StartingActivity extends AppCompatActivity {
         }
     }
 
-    private void generateEncryptionKeyPair(byte[] seed) {
-        KeyPair encryptionKeyPair = new KeyPair(seed);
-        byte[] encryptionPublicKey = encryptionKeyPair.getPublicKey().toBytes();
-        byte[] encryptionPrivateKey = encryptionKeyPair.getPrivateKey().toBytes();
-        public_k = Base64.encodeToString(encryptionPublicKey, BASE64_SAFE_URL_FLAGS);
-        private_k = Base64.encodeToString(encryptionPrivateKey, BASE64_SAFE_URL_FLAGS);
-    }
-
-    private void generateSigningKeyPair(byte[] seed) {
-        SigningKey signingKey = new SigningKey(seed);
-        VerifyKey verifyKey = signingKey.getVerifyKey();
-        byte[] verifyKeyArray = verifyKey.toBytes();
-        byte[] signingKeyArray = signingKey.toBytes();
-        //signKeyView.setText(Base64.encodeToString(verifyKeyArray, BASE64_SAFE_URL_FLAGS));
-        signature_k =  Base64.encodeToString(signingKeyArray, BASE64_SAFE_URL_FLAGS);
-    }
+//    private void generateEncryptionKeyPair(byte[] seed) {
+//        KeyPair encryptionKeyPair = new KeyPair(seed);
+//        byte[] encryptionPublicKey = encryptionKeyPair.getPublicKey().toBytes();
+//        byte[] encryptionPrivateKey = encryptionKeyPair.getPrivateKey().toBytes();
+//        public_k = Base64.encodeToString(encryptionPublicKey, BASE64_SAFE_URL_FLAGS);
+//        private_k = Base64.encodeToString(encryptionPrivateKey, BASE64_SAFE_URL_FLAGS);
+//    }
+//
+//    private void generateSigningKeyPair(byte[] seed) {
+//        SigningKey signingKey = new SigningKey(seed);
+//        VerifyKey verifyKey = signingKey.getVerifyKey();
+//        byte[] verifyKeyArray = verifyKey.toBytes();
+//        byte[] signingKeyArray = signingKey.toBytes();
+//        //signKeyView.setText(Base64.encodeToString(verifyKeyArray, BASE64_SAFE_URL_FLAGS));
+//        signature_k =  Base64.encodeToString(signingKeyArray, BASE64_SAFE_URL_FLAGS);
+//    }
 
     private void generateWallet() throws Exception {
-        //public_k = EncryptionHelper.generateKeyPair().getPublic().toString();
+        KeyPair pair = EncryptionHelper.generateKeyPair();
+        PublicKey public_kk = pair.getPublic();
+        PrivateKey private_kk = pair.getPrivate();
+
+        public_k = EncryptionHelper.savePublicKey(public_kk);
+        private_k = EncryptionHelper.savePrivateKey(private_kk);
+
+
+        signature_k = EncryptionHelper.sign("Plarent", private_kk);
+        boolean isSignatureCorrect = EncryptionHelper.verify("Plarent", signature_k, public_kk);
+
         String url = "http://poc.serval.uni.lu:8080/api/services/cryptocurrency/v1/wallets";
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("pub_key", public_k);
@@ -164,6 +177,7 @@ public class StartingActivity extends AppCompatActivity {
         outJson.put("protocol_version", 0);
         outJson.put("service_id", 1);
         outJson.put("message_id", 0);
+
         outJson.put("signature", signature_k);
 
         try {
