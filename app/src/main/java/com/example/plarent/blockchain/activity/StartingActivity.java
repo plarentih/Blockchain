@@ -20,9 +20,9 @@ import com.example.plarent.blockchain.fragment.PaymentFragment;
 import com.example.plarent.blockchain.fragment.TransferFragment;
 import com.example.plarent.blockchain.fragment.WalletFragment;
 import com.example.plarent.blockchain.tools.BottomNavigationViewHelper;
+import com.example.plarent.blockchain.tools.EncryptionHelper;
 
 import java.io.IOException;
-import java.security.KeyPairGenerator;
 import java.util.ArrayList;
 
 import okhttp3.MediaType;
@@ -51,6 +51,7 @@ public class StartingActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private String public_k;
     private String private_k;
+    private String signature_k;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,9 +138,8 @@ public class StartingActivity extends AppCompatActivity {
         KeyPair encryptionKeyPair = new KeyPair(seed);
         byte[] encryptionPublicKey = encryptionKeyPair.getPublicKey().toBytes();
         byte[] encryptionPrivateKey = encryptionKeyPair.getPrivateKey().toBytes();
-
         public_k = Base64.encodeToString(encryptionPublicKey, BASE64_SAFE_URL_FLAGS);
-        //private_k = Base64.encodeToString(encryptionPrivateKey, BASE64_SAFE_URL_FLAGS);
+        private_k = Base64.encodeToString(encryptionPrivateKey, BASE64_SAFE_URL_FLAGS);
     }
 
     private void generateSigningKeyPair(byte[] seed) {
@@ -148,18 +148,14 @@ public class StartingActivity extends AppCompatActivity {
         byte[] verifyKeyArray = verifyKey.toBytes();
         byte[] signingKeyArray = signingKey.toBytes();
         //signKeyView.setText(Base64.encodeToString(verifyKeyArray, BASE64_SAFE_URL_FLAGS));
-        private_k =  Base64.encodeToString(signingKeyArray, BASE64_SAFE_URL_FLAGS);
+        signature_k =  Base64.encodeToString(signingKeyArray, BASE64_SAFE_URL_FLAGS);
     }
 
-    private void generateWallet() throws JSONException, Exception {
-        String public_key = "fa7f9ee43aff70c879f80fa7fd15955c18b98c72310b09e7818310325050cf7a";
-        String private_key = "978e3321bd6331d56e5f4c2bdb95bf471e95a77a6839e68d4241e7b0932ebe2b" + "fa7f9ee43aff70c879f80fa7fd15955c18b98c72310b09e7818310325050cf7a";
-//      String public_key = "6ce29b2d3ecadc434107ce52c287001c968a1b6eca3e5a1eb62a2419e2924b85";
-//      String private_key = "9f684227f1de663775848b3db656bca685e085391e2b00b0e115679fd45443ef58a5abeb555ab3d5f7a3cd27955a2079e5fd486743f36515c8e5bea07992100b";
+    private void generateWallet() throws Exception {
+        //public_k = EncryptionHelper.generateKeyPair().getPublic().toString();
         String url = "http://poc.serval.uni.lu:8080/api/services/cryptocurrency/v1/wallets";
-
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("pub_key", public_key);
+        jsonObject.put("pub_key", public_k);
         jsonObject.put("name", "Plarent");
 
         JSONObject outJson = new JSONObject();
@@ -168,7 +164,7 @@ public class StartingActivity extends AppCompatActivity {
         outJson.put("protocol_version", 0);
         outJson.put("service_id", 1);
         outJson.put("message_id", 0);
-        outJson.put("signature", private_key);
+        outJson.put("signature", signature_k);
 
         try {
             startProcess(url, outJson.toString());

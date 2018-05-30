@@ -43,6 +43,7 @@ dependencies {
     compile 'me.dm7.barcodescanner:zxing:1.8.4'
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile 'net.i2p.crypto:eddsa:0.3.0'
     compile project(':libsodium-jni-release')
 }
 apply plugin: 'com.google.gms.google-services'

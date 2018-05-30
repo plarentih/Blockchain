@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Blockchain.iml" filepath="$PROJECT_DIR$/Blockchain.iml" />
       <module fileurl="file://$PROJECT_DIR$/libsodium-jni-release/Blockchain-libsodium-jni-release.iml" filepath="$PROJECT_DIR$/libsodium-jni-release/Blockchain-libsodium-jni-release.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libsodium-jni-release/libsodium-jni-release.iml" filepath="$PROJECT_DIR$/libsodium-jni-release/libsodium-jni-release.iml" />
     </modules>
   </component>
 </project>
