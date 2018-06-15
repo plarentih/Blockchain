@@ -35,14 +35,14 @@ public class EncryptionHelper {
 
 
     public static KeyPair generateKeyPair() throws Exception {
-        KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
-        generator.initialize(2048, new SecureRandom());
+        KeyPairGenerator generator = KeyPairGenerator.getInstance("EC");
+        generator.initialize(256, new SecureRandom());
         KeyPair pair = generator.generateKeyPair();
         return pair;
     }
 
     public static PrivateKey loadPrivateKey(String key64) throws GeneralSecurityException {
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        KeyFactory keyFactory = KeyFactory.getInstance("EC");
         byte[] encodedPv = Base64.decode(key64, Base64.DEFAULT);
         PKCS8EncodedKeySpec specPrivate = new PKCS8EncodedKeySpec(encodedPv);
         PrivateKey privateKey = keyFactory.generatePrivate(specPrivate);
@@ -50,7 +50,7 @@ public class EncryptionHelper {
     }
 
     public static PublicKey loadPublicKey(String stored) throws GeneralSecurityException {
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+        KeyFactory keyFactory = KeyFactory.getInstance("EC");
         byte[] encodedPb = Base64.decode(stored, Base64.DEFAULT);
         X509EncodedKeySpec keySpecPb = new X509EncodedKeySpec(encodedPb);
         PublicKey publicKeyString = keyFactory.generatePublic(keySpecPb);
@@ -71,7 +71,7 @@ public class EncryptionHelper {
     }
 
     public static String sign(String plainText, PrivateKey privateKey) throws Exception {
-        Signature privateSignature = Signature.getInstance("SHA256withRSA");
+        Signature privateSignature = Signature.getInstance("SHA1withECDSA");
         privateSignature.initSign(privateKey);
         privateSignature.update(plainText.getBytes(UTF_8));
 
@@ -81,7 +81,7 @@ public class EncryptionHelper {
     }
 
     public static boolean verify(String plainText, String signature, PublicKey publicKey) throws Exception {
-        Signature publicSignature = Signature.getInstance("SHA256withRSA");
+        Signature publicSignature = Signature.getInstance("SHA1withECDSA");
         publicSignature.initVerify(publicKey);
         publicSignature.update(plainText.getBytes(UTF_8));
 

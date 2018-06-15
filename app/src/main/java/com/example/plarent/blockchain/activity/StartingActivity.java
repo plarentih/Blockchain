@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
 
+
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -35,14 +37,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.libsodium.jni.SodiumConstants;
-import org.libsodium.jni.crypto.Random;
-import org.libsodium.jni.SodiumConstants;
-import org.libsodium.jni.crypto.Random;
-import org.libsodium.jni.keys.SigningKey;
-import org.libsodium.jni.keys.VerifyKey;
-//import org.libsodium.jni.keys.KeyPair;
 
 
 public class StartingActivity extends AppCompatActivity {
@@ -116,13 +110,12 @@ public class StartingActivity extends AppCompatActivity {
 
         if(public_k.trim().isEmpty() && private_k.trim().isEmpty()){
             //byte[] seed = new Random().randomBytes(SodiumConstants.SECRETKEY_BYTES);
-            //generateEncryptionKeyPair(seed);
-            //generateSigningKeyPair(seed);
             Thread threadi = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try  {
                         generateWallet();
+                        //testProcess();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -137,68 +130,74 @@ public class StartingActivity extends AppCompatActivity {
         }
     }
 
-//    private void generateEncryptionKeyPair(byte[] seed) {
-//        KeyPair encryptionKeyPair = new KeyPair(seed);
-//        byte[] encryptionPublicKey = encryptionKeyPair.getPublicKey().toBytes();
-//        byte[] encryptionPrivateKey = encryptionKeyPair.getPrivateKey().toBytes();
-//        public_k = Base64.encodeToString(encryptionPublicKey, BASE64_SAFE_URL_FLAGS);
-//        private_k = Base64.encodeToString(encryptionPrivateKey, BASE64_SAFE_URL_FLAGS);
-//    }
-//
-//    private void generateSigningKeyPair(byte[] seed) {
-//        SigningKey signingKey = new SigningKey(seed);
-//        VerifyKey verifyKey = signingKey.getVerifyKey();
-//        byte[] verifyKeyArray = verifyKey.toBytes();
-//        byte[] signingKeyArray = signingKey.toBytes();
-//        //signKeyView.setText(Base64.encodeToString(verifyKeyArray, BASE64_SAFE_URL_FLAGS));
-//        signature_k =  Base64.encodeToString(signingKeyArray, BASE64_SAFE_URL_FLAGS);
-//    }
-
     private void generateWallet() throws Exception {
         KeyPair pair = EncryptionHelper.generateKeyPair();
         PublicKey public_kk = pair.getPublic();
         PrivateKey private_kk = pair.getPrivate();
 
-        public_k = EncryptionHelper.savePublicKey(public_kk);
-        private_k = EncryptionHelper.savePrivateKey(private_kk);
+        byte[] pubBytes = Base64.encode(public_kk.getEncoded(), Base64.DEFAULT);
+        public_k = new String(pubBytes);
 
+        
 
-        signature_k = EncryptionHelper.sign("Plarent", private_kk);
-        boolean isSignatureCorrect = EncryptionHelper.verify("Plarent", signature_k, public_kk);
+        byte[] privBytes = Base64.encode(private_kk.getEncoded(), Base64.DEFAULT);
+        private_k = new String(privBytes);
+
 
         String url = "http://poc.serval.uni.lu:8080/api/services/cryptocurrency/v1/wallets";
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("pub_key", public_k);
-        jsonObject.put("name", "Plarent");
 
-        JSONObject outJson = new JSONObject();
-        outJson.put("body", jsonObject);
-        outJson.put("network_id", 0);
-        outJson.put("protocol_version", 0);
-        outJson.put("service_id", 1);
-        outJson.put("message_id", 0);
+        String json = "{  \n" +
+                "   \"body\":{  \n" +
+                "      \"pub_key\": \"" + public_k + "\",\n" +
+                "      \"name\": \"Plarent\"\n" +
+                "   },\n" +
+                "   \"network_id\": 0,\n" +
+                "   \"protocol_version\": 0,\n" +
+                "   \"service_id\": 1,\n" +
+                "   \"message_id\": 0\n" +
+                "}";
 
-        outJson.put("signature", signature_k);
+        signature_k = EncryptionHelper.sign(json, private_kk);
+        boolean isSignatureCorrect = EncryptionHelper.verify(json, signature_k, public_kk);
+
+        String endResult = "{  \n" +
+                "   \"body\":{  \n" +
+                "      \"pub_key\": \"" + public_k + "\",\n" +
+                "      \"name\": \"Plarent\"\n" +
+                "   },\n" +
+                "   \"network_id\": 0,\n" +
+                "   \"protocol_version\": 0,\n" +
+                "   \"service_id\": 1,\n" +
+                "   \"message_id\": 0,\n" +
+                "   \"signature\":" + "\"" + signature_k + "\"" + "\n" +
+                "}";
 
         try {
-            startProcess(url, outJson.toString());
+            startProcess(url, endResult);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public String startProcess(String url, String json) throws IOException, JSONException {
-        RequestBody body = RequestBody.create(JSON_FORMAT, json);
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-        Response response = client.newCall(request).execute();
-        int code = response.code();
-        String res = response.body().string();
-        boolean isSucc = response.isSuccessful();
-        JSONObject dataReceived = new JSONObject(res);
-        return dataReceived.toString();
+        try{
+            RequestBody body = RequestBody.create(JSON_FORMAT, json);
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+            Response response = null;
+
+            response = client.newCall(request).execute();
+            Log.d("PLARENT!!!!!", response.toString());
+            int code = response.code();
+            String res = response.body().string();
+            return res;
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     public String runi(String url) throws IOException {
