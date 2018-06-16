@@ -21,12 +21,15 @@ import com.example.plarent.blockchain.fragment.PaymentFragment;
 import com.example.plarent.blockchain.fragment.TransferFragment;
 import com.example.plarent.blockchain.fragment.WalletFragment;
 import com.example.plarent.blockchain.tools.BottomNavigationViewHelper;
-import com.example.plarent.blockchain.tools.EncryptionHelper;
 
 import java.io.IOException;
-import java.security.KeyPair;
-import java.security.PrivateKey;
-import java.security.PublicKey;
+//import java.security.KeyPair;
+//import java.security.KeyPairGenerator;
+//import java.security.PrivateKey;
+//import java.security.PublicKey;
+//import java.security.SecureRandom;
+//import java.security.Security;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 
@@ -35,11 +38,20 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
 import org.json.JSONException;
 
+import org.libsodium.jni.SodiumConstants;
+import org.libsodium.jni.crypto.Random;
+import org.libsodium.jni.encoders.Raw;
+import org.libsodium.jni.keys.KeyPair;
+import org.libsodium.jni.keys.PrivateKey;
+import org.libsodium.jni.keys.PublicKey;
+import org.libsodium.jni.keys.SigningKey;
+import org.libsodium.jni.encoders.Encoder;
 
-public class StartingActivity extends AppCompatActivity {
+public class StartingActivity extends AppCompatActivity{
+
+    public static final int AA = SodiumConstants.SECRETKEY_BYTES;
 
     public static final int BASE64_SAFE_URL_FLAGS = Base64.URL_SAFE | Base64.NO_PADDING | Base64.NO_WRAP;
     public static final MediaType JSON_FORMAT = MediaType.parse("application/json; charset=utf-8");
@@ -49,6 +61,9 @@ public class StartingActivity extends AppCompatActivity {
     private String public_k;
     private String private_k;
     private String signature_k;
+    private byte [] sig;
+
+    private Encoder encoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,13 +124,12 @@ public class StartingActivity extends AppCompatActivity {
         transaction.commit();
 
         if(public_k.trim().isEmpty() && private_k.trim().isEmpty()){
-            //byte[] seed = new Random().randomBytes(SodiumConstants.SECRETKEY_BYTES);
             Thread threadi = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try  {
-                        generateWallet();
-                        //testProcess();
+                        byte[] seed = new Random().randomBytes(SodiumConstants.SECRETKEY_BYTES);
+                        generateWallet(seed);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -130,20 +144,30 @@ public class StartingActivity extends AppCompatActivity {
         }
     }
 
-    private void generateWallet() throws Exception {
-        KeyPair pair = EncryptionHelper.generateKeyPair();
-        PublicKey public_kk = pair.getPublic();
-        PrivateKey private_kk = pair.getPrivate();
+    private void generateWallet(byte[] seed) throws Exception {
+//        KeyPair pair = EncryptionHelper.generateKeyPair();
+//        PublicKey public_kk = pair.getPublic();
+//        PrivateKey private_kk = pair.getPrivate();
+//
+//        byte[] pubBytes = Base64.encode(public_kk.getEncoded(), Base64.DEFAULT);
+//        public_k = new String(pubBytes);
+//
+//        byte[] privBytes = Base64.encode(private_kk.getEncoded(), Base64.DEFAULT);
+//        private_k = new String(privBytes);
+        ////
+        KeyPair encryptionKeyPair = new KeyPair(seed);
+        byte[] encryptionPublicKey = encryptionKeyPair.getPublicKey().toBytes();
+        byte[] encryptionPrivateKey = encryptionKeyPair.getPrivateKey().toBytes();
+        PrivateKey privateKey = encryptionKeyPair.getPrivateKey();
+        PublicKey publicKey = encryptionKeyPair.getPublicKey();
+        privateKey.toBytes();
+        SigningKey signingKey = new SigningKey(seed);
 
-        byte[] pubBytes = Base64.encode(public_kk.getEncoded(), Base64.DEFAULT);
-        public_k = new String(pubBytes);
-
-        
-
-        byte[] privBytes = Base64.encode(private_kk.getEncoded(), Base64.DEFAULT);
-        private_k = new String(privBytes);
+        public_k = publicKey.toString();
+        private_k = privateKey.toString();
 
 
+        ////
         String url = "http://poc.serval.uni.lu:8080/api/services/cryptocurrency/v1/wallets";
 
         String json = "{  \n" +
@@ -157,8 +181,15 @@ public class StartingActivity extends AppCompatActivity {
                 "   \"message_id\": 0\n" +
                 "}";
 
-        signature_k = EncryptionHelper.sign(json, private_kk);
-        boolean isSignatureCorrect = EncryptionHelper.verify(json, signature_k, public_kk);
+
+        //SigningKey sKey = new SigningKey(private_k, HEX);
+        sig = signingKey.sign(json.getBytes(StandardCharsets.UTF_8));
+        encoder = new Raw();
+        signature_k = signingKey.sign(json, encoder);
+
+
+        //signature_k = EncryptionHelper.sign(json, privateKey);
+        //boolean isSignatureCorrect = EncryptionHelper.verify(json, signature_k, public_kk);
 
         String endResult = "{  \n" +
                 "   \"body\":{  \n" +
