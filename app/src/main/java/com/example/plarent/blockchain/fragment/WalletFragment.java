@@ -30,6 +30,8 @@ public class WalletFragment extends Fragment {
     private List<Contact> contacts;
     private Button historyBtn;
 
+
+
     public WalletFragment(){
     }
 
@@ -51,7 +53,7 @@ public class WalletFragment extends Fragment {
         historyBtn = view.findViewById(R.id.history_btn);
         listView = view.findViewById(R.id.wallet_listView);
         Contact contact = new Contact("1", "Plarent Haxhidauti", "661932412",
-                1389, "EURO");
+                TransferFragment.AMOUNT, "EURO");
         contacts.add(contact);
         walletAdapter = new WalletAdapter(getContext(), contacts);
         listView.setAdapter(walletAdapter);

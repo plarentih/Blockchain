@@ -47,6 +47,9 @@ dependencies {
     compile project(':libsodium-jni-release')
     implementation files('libs/bcprov-jdk15on-159.jar')
     implementation files('libs/core-1.58.0.0.jar')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'commons-codec:commons-codec:1.11'
+    compile 'org.abstractj.kalium:kalium:0.8.0'
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.android.application'

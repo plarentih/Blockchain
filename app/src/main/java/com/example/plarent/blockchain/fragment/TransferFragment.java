@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -16,7 +17,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.activeandroid.query.Select;
 import com.example.plarent.blockchain.R;
@@ -31,10 +34,14 @@ public class TransferFragment extends Fragment {
 
     private Button sendButton, historyButton, peopleButton;
     private AutoCompleteTextView autoCompleteTextView;
+    private EditText amountTxt;
+    private EditText amountSend;
     ArrayAdapter<String> adapter;
 
     List<Person> personList;
     List<String> personNames;
+
+    public static int AMOUNT = 1900;
 
     public TransferFragment() {
 
@@ -58,6 +65,8 @@ public class TransferFragment extends Fragment {
         historyButton = view.findViewById(R.id.btnHistory);
         peopleButton = view.findViewById(R.id.btnPeople);
         sendButton = view.findViewById(R.id.buttonSend);
+        amountTxt = view.findViewById(R.id.amount);
+        amountSend = view.findViewById(R.id.amount_send);
 
         setAutoCompleteView();
 
@@ -70,7 +79,15 @@ public class TransferFragment extends Fragment {
                 builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        String currentNoV = amountTxt.getText().toString();
+                        int currentvalue = Integer.parseInt(currentNoV);
 
+                        String currentNo = amountSend.getText().toString();
+                        int value = Integer.parseInt(currentNo);
+
+
+                        AMOUNT = currentvalue - value;
+                        amountTxt.setText("" + AMOUNT);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -99,6 +116,14 @@ public class TransferFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                amountTxt.setText("" + 100);
+//                AMOUNT = 100;
+//            }
+//        }, 2000);
         return view;
     }
 

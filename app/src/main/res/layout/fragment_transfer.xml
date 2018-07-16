@@ -133,11 +133,13 @@
                 android:textColor="#000"
                 android:textSize="15sp"
                 android:text="Amount: "/>
-            <TextView
+
+            <EditText
                 android:id="@+id/amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1389"
+                android:inputType="number"
+                android:text="1900"
                 android:textColor="#0082c3"
                 android:textSize="15dp" />
         </LinearLayout>
@@ -224,7 +226,7 @@
             android:id="@+id/amount_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="0.00$"
+            android:hint="0.00€"
             android:inputType="number"
             android:textColor="#0082c3"
             android:layout_centerHorizontal="true"

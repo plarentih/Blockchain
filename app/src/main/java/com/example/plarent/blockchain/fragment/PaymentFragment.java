@@ -90,6 +90,9 @@ public class PaymentFragment extends Fragment implements ZXingScannerView.Result
         Toast.makeText(getActivity(), "You have made a payment of " + text + " EUR", Toast.LENGTH_LONG).show();
         frameLayout.setVisibility(View.GONE);
         buttonPay.setVisibility(View.VISIBLE);
+        int amountPayed = Integer.parseInt(text);
+        TransferFragment.AMOUNT = 1900 - amountPayed;
+
     }
 
     @Override
